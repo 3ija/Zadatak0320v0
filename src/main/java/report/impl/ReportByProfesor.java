@@ -6,29 +6,35 @@ import org.springframework.stereotype.Repository;
 
 import dao.Dao;
 import domain.Ispit;
+import domain.Predmet;
+import domain.Profesor;
 import report.Report;
 
 @Repository(value = "reportByProfesor")
 public class ReportByProfesor implements Report {
 
-	private String prof;
+	private Profesor prof;
 
 	public ReportByProfesor() {
 
-	}
-
-	public void setParam(String prof) {
-		this.prof = prof;
 	}
 
 	public void getReport() {
 		List<Ispit> ispiti = Dao.ispiti;
 		System.out.println("-----REPORT BY PROFESOR-----");
 		for (Ispit ispit : ispiti) {
-			if (ispit.getSifra_nastavnika().equalsIgnoreCase(this.prof)) {
-				System.out.println(ispit);
+			try {
+				if (ispit.getSifra_nastavnika().getSifra().equals(this.prof.getSifra())) {
+					System.out.println(ispit);
+				}
+			} catch (Exception e) {
+
 			}
 		}
+	}
+
+	public void setParam(Object prof) {
+		this.prof = (Profesor) prof;
 	}
 
 }

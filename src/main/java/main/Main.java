@@ -4,6 +4,8 @@ import org.springframework.beans.factory.BeanFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import config.MyBeanConfig;
+import domain.Profesor;
+import report.Report;
 import repository.IRepository;
 import service.MessageService;
 import service.ReportService;
@@ -13,10 +15,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		ReportService report = Cont.container.getBean("reportService", ReportService.class);
-		report.enableByPredmet(true,"1");
-		report.enableByProfesor(true,"1");
-		report.printReport();
-		
+		Profesor prof = Cont.container.getBean("profesor", Profesor.class);
+		prof.setSifra("1");
+		Report rep = report.printReport(prof);
+		rep.getReport();
 		
 		
 	}
